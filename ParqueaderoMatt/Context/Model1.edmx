@@ -1,0 +1,742 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Parqueadero_MattModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CARGO">
+          <Key>
+            <PropertyRef Name="ID_CARGO" />
+          </Key>
+          <Property Name="ID_CARGO" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="NOMBRE_CARGO" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DATOS_VEHICULO">
+          <Key>
+            <PropertyRef Name="ID_DATOS_VEHICULO" />
+          </Key>
+          <Property Name="ID_DATOS_VEHICULO" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CILINDAJE_MOTO" Type="varchar" MaxLength="10" />
+          <Property Name="TIEMPO_MOTO" Type="varchar" MaxLength="10" />
+          <Property Name="PLACA_MOTO_CARRO" Type="varchar" MaxLength="8" />
+          <Property Name="MODELO_CARRO" Type="varchar" MaxLength="50" />
+          <Property Name="NUMERO_PUERTAS_CARRO" Type="int" />
+          <Property Name="MARCA_BICI" Type="varchar" MaxLength="25" />
+          <Property Name="COLOR_BICI" Type="varchar" MaxLength="25" />
+          <Property Name="FOTO_VEHICULO" Type="varchar" MaxLength="200" />
+          <Property Name="ID_TIPO_VEHICULO" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PERSONA">
+          <Key>
+            <PropertyRef Name="ID_PERSONA" />
+          </Key>
+          <Property Name="ID_PERSONA" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IDENTIFICACION_PERSONA" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="TIPO_IDENTIFICACION_PERSONA" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="NOMBRE1_PERSONA" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="NOMBRE2_PERSONA" Type="varchar" MaxLength="25" />
+          <Property Name="APELLIDO1_PERSONA" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="APELLIDO2_PERSONA" Type="varchar" MaxLength="25" />
+          <Property Name="ID_CARGO" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ID_TIPO_PERSONA" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REGISTRO_EMPLEADO_VEHICULO">
+          <Key>
+            <PropertyRef Name="ID_REGISTRO_EMPLEADO_VEHICULO" />
+          </Key>
+          <Property Name="ID_REGISTRO_EMPLEADO_VEHICULO" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ID_PERSONA" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ID_DATOS_VEHICULO" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="NRO_CELDA_ASIGNADA" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REGISTRO_INGRESO">
+          <Key>
+            <PropertyRef Name="ID_INGRESO" />
+          </Key>
+          <Property Name="ID_INGRESO" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FECHA_HORA_INGRESO" Type="datetime" Nullable="false" />
+          <Property Name="ID_PERSONA" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ID_DATOS_VEHICULO" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="NRO_CELDA_VISITANTE" Type="int" Nullable="false" />
+          <Property Name="CONSERJE" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TIPO_IDENTIFICACION">
+          <Key>
+            <PropertyRef Name="ID_TIPO_IDENTIFICACION" />
+          </Key>
+          <Property Name="ID_TIPO_IDENTIFICACION" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TIPO_IDENTIFICACION" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TIPO_PERSONA">
+          <Key>
+            <PropertyRef Name="ID_TIPO_PERSONA" />
+          </Key>
+          <Property Name="ID_TIPO_PERSONA" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DESC_TIPO_PERSONA" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TIPO_VEHICULO">
+          <Key>
+            <PropertyRef Name="ID_TIPO_VEHICULO" />
+          </Key>
+          <Property Name="ID_TIPO_VEHICULO" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TIPO_VEHICULO" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="APLICA_ALIVIO" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="VALOR" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_DATOS_VEHICULO">
+          <End Role="TIPO_VEHICULO" Type="Self.TIPO_VEHICULO" Multiplicity="1" />
+          <End Role="DATOS_VEHICULO" Type="Self.DATOS_VEHICULO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPO_VEHICULO">
+              <PropertyRef Name="ID_TIPO_VEHICULO" />
+            </Principal>
+            <Dependent Role="DATOS_VEHICULO">
+              <PropertyRef Name="ID_TIPO_VEHICULO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PERSONA_CARGO">
+          <End Role="CARGO" Type="Self.CARGO" Multiplicity="1" />
+          <End Role="PERSONA" Type="Self.PERSONA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CARGO">
+              <PropertyRef Name="ID_CARGO" />
+            </Principal>
+            <Dependent Role="PERSONA">
+              <PropertyRef Name="ID_CARGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PERSONA_TIPOIDENTIFICACION">
+          <End Role="TIPO_IDENTIFICACION" Type="Self.TIPO_IDENTIFICACION" Multiplicity="1" />
+          <End Role="PERSONA" Type="Self.PERSONA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPO_IDENTIFICACION">
+              <PropertyRef Name="ID_TIPO_IDENTIFICACION" />
+            </Principal>
+            <Dependent Role="PERSONA">
+              <PropertyRef Name="TIPO_IDENTIFICACION_PERSONA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PERSONA_TIPOPERSONA">
+          <End Role="TIPO_PERSONA" Type="Self.TIPO_PERSONA" Multiplicity="1" />
+          <End Role="PERSONA" Type="Self.PERSONA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPO_PERSONA">
+              <PropertyRef Name="ID_TIPO_PERSONA" />
+            </Principal>
+            <Dependent Role="PERSONA">
+              <PropertyRef Name="ID_TIPO_PERSONA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REGISTRO_INGRESO_CONSERJE">
+          <End Role="PERSONA" Type="Self.PERSONA" Multiplicity="1" />
+          <End Role="REGISTRO_INGRESO" Type="Self.REGISTRO_INGRESO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERSONA">
+              <PropertyRef Name="ID_PERSONA" />
+            </Principal>
+            <Dependent Role="REGISTRO_INGRESO">
+              <PropertyRef Name="CONSERJE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REGISTRO_INGRESO_PERSONA">
+          <End Role="PERSONA" Type="Self.PERSONA" Multiplicity="1" />
+          <End Role="REGISTRO_INGRESO" Type="Self.REGISTRO_INGRESO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERSONA">
+              <PropertyRef Name="ID_PERSONA" />
+            </Principal>
+            <Dependent Role="REGISTRO_INGRESO">
+              <PropertyRef Name="ID_PERSONA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REGISTRO_INGRESO_VEHICULO">
+          <End Role="DATOS_VEHICULO" Type="Self.DATOS_VEHICULO" Multiplicity="1" />
+          <End Role="REGISTRO_INGRESO" Type="Self.REGISTRO_INGRESO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DATOS_VEHICULO">
+              <PropertyRef Name="ID_DATOS_VEHICULO" />
+            </Principal>
+            <Dependent Role="REGISTRO_INGRESO">
+              <PropertyRef Name="ID_DATOS_VEHICULO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REGISTRO_PERSONA">
+          <End Role="PERSONA" Type="Self.PERSONA" Multiplicity="1" />
+          <End Role="REGISTRO_EMPLEADO_VEHICULO" Type="Self.REGISTRO_EMPLEADO_VEHICULO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERSONA">
+              <PropertyRef Name="ID_PERSONA" />
+            </Principal>
+            <Dependent Role="REGISTRO_EMPLEADO_VEHICULO">
+              <PropertyRef Name="ID_PERSONA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REGISTRO_VEHICULO">
+          <End Role="DATOS_VEHICULO" Type="Self.DATOS_VEHICULO" Multiplicity="1" />
+          <End Role="REGISTRO_EMPLEADO_VEHICULO" Type="Self.REGISTRO_EMPLEADO_VEHICULO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DATOS_VEHICULO">
+              <PropertyRef Name="ID_DATOS_VEHICULO" />
+            </Principal>
+            <Dependent Role="REGISTRO_EMPLEADO_VEHICULO">
+              <PropertyRef Name="ID_DATOS_VEHICULO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="Parqueadero_MattModelStoreContainer">
+          <EntitySet Name="CARGO" EntityType="Self.CARGO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DATOS_VEHICULO" EntityType="Self.DATOS_VEHICULO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PERSONA" EntityType="Self.PERSONA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REGISTRO_EMPLEADO_VEHICULO" EntityType="Self.REGISTRO_EMPLEADO_VEHICULO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REGISTRO_INGRESO" EntityType="Self.REGISTRO_INGRESO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TIPO_IDENTIFICACION" EntityType="Self.TIPO_IDENTIFICACION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TIPO_PERSONA" EntityType="Self.TIPO_PERSONA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TIPO_VEHICULO" EntityType="Self.TIPO_VEHICULO" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DATOS_VEHICULO" Association="Self.FK_DATOS_VEHICULO">
+            <End Role="TIPO_VEHICULO" EntitySet="TIPO_VEHICULO" />
+            <End Role="DATOS_VEHICULO" EntitySet="DATOS_VEHICULO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PERSONA_CARGO" Association="Self.FK_PERSONA_CARGO">
+            <End Role="CARGO" EntitySet="CARGO" />
+            <End Role="PERSONA" EntitySet="PERSONA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PERSONA_TIPOIDENTIFICACION" Association="Self.FK_PERSONA_TIPOIDENTIFICACION">
+            <End Role="TIPO_IDENTIFICACION" EntitySet="TIPO_IDENTIFICACION" />
+            <End Role="PERSONA" EntitySet="PERSONA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PERSONA_TIPOPERSONA" Association="Self.FK_PERSONA_TIPOPERSONA">
+            <End Role="TIPO_PERSONA" EntitySet="TIPO_PERSONA" />
+            <End Role="PERSONA" EntitySet="PERSONA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REGISTRO_INGRESO_CONSERJE" Association="Self.FK_REGISTRO_INGRESO_CONSERJE">
+            <End Role="PERSONA" EntitySet="PERSONA" />
+            <End Role="REGISTRO_INGRESO" EntitySet="REGISTRO_INGRESO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REGISTRO_INGRESO_PERSONA" Association="Self.FK_REGISTRO_INGRESO_PERSONA">
+            <End Role="PERSONA" EntitySet="PERSONA" />
+            <End Role="REGISTRO_INGRESO" EntitySet="REGISTRO_INGRESO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REGISTRO_INGRESO_VEHICULO" Association="Self.FK_REGISTRO_INGRESO_VEHICULO">
+            <End Role="DATOS_VEHICULO" EntitySet="DATOS_VEHICULO" />
+            <End Role="REGISTRO_INGRESO" EntitySet="REGISTRO_INGRESO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REGISTRO_PERSONA" Association="Self.FK_REGISTRO_PERSONA">
+            <End Role="PERSONA" EntitySet="PERSONA" />
+            <End Role="REGISTRO_EMPLEADO_VEHICULO" EntitySet="REGISTRO_EMPLEADO_VEHICULO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REGISTRO_VEHICULO" Association="Self.FK_REGISTRO_VEHICULO">
+            <End Role="DATOS_VEHICULO" EntitySet="DATOS_VEHICULO" />
+            <End Role="REGISTRO_EMPLEADO_VEHICULO" EntitySet="REGISTRO_EMPLEADO_VEHICULO" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Parqueadero_MattModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CARGO">
+          <Key>
+            <PropertyRef Name="ID_CARGO" />
+          </Key>
+          <Property Name="ID_CARGO" Type="Guid" Nullable="false" />
+          <Property Name="NOMBRE_CARGO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="PERSONA" Relationship="Self.FK_PERSONA_CARGO" FromRole="CARGO" ToRole="PERSONA" />
+        </EntityType>
+        <EntityType Name="DATOS_VEHICULO">
+          <Key>
+            <PropertyRef Name="ID_DATOS_VEHICULO" />
+          </Key>
+          <Property Name="ID_DATOS_VEHICULO" Type="Guid" Nullable="false" />
+          <Property Name="CILINDAJE_MOTO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TIEMPO_MOTO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="PLACA_MOTO_CARRO" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="MODELO_CARRO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NUMERO_PUERTAS_CARRO" Type="Int32" />
+          <Property Name="MARCA_BICI" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="COLOR_BICI" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="FOTO_VEHICULO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ID_TIPO_VEHICULO" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="TIPO_VEHICULO" Relationship="Self.FK_DATOS_VEHICULO" FromRole="DATOS_VEHICULO" ToRole="TIPO_VEHICULO" />
+          <NavigationProperty Name="REGISTRO_INGRESO" Relationship="Self.FK_REGISTRO_INGRESO_VEHICULO" FromRole="DATOS_VEHICULO" ToRole="REGISTRO_INGRESO" />
+          <NavigationProperty Name="REGISTRO_EMPLEADO_VEHICULO" Relationship="Self.FK_REGISTRO_VEHICULO" FromRole="DATOS_VEHICULO" ToRole="REGISTRO_EMPLEADO_VEHICULO" />
+        </EntityType>
+        <EntityType Name="PERSONA">
+          <Key>
+            <PropertyRef Name="ID_PERSONA" />
+          </Key>
+          <Property Name="ID_PERSONA" Type="Guid" Nullable="false" />
+          <Property Name="IDENTIFICACION_PERSONA" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TIPO_IDENTIFICACION_PERSONA" Type="Guid" Nullable="false" />
+          <Property Name="NOMBRE1_PERSONA" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NOMBRE2_PERSONA" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="APELLIDO1_PERSONA" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="APELLIDO2_PERSONA" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="ID_CARGO" Type="Guid" Nullable="false" />
+          <Property Name="ID_TIPO_PERSONA" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="CARGO" Relationship="Self.FK_PERSONA_CARGO" FromRole="PERSONA" ToRole="CARGO" />
+          <NavigationProperty Name="TIPO_IDENTIFICACION" Relationship="Self.FK_PERSONA_TIPOIDENTIFICACION" FromRole="PERSONA" ToRole="TIPO_IDENTIFICACION" />
+          <NavigationProperty Name="TIPO_PERSONA" Relationship="Self.FK_PERSONA_TIPOPERSONA" FromRole="PERSONA" ToRole="TIPO_PERSONA" />
+          <NavigationProperty Name="REGISTRO_INGRESO" Relationship="Self.FK_REGISTRO_INGRESO_CONSERJE" FromRole="PERSONA" ToRole="REGISTRO_INGRESO" />
+          <NavigationProperty Name="REGISTRO_INGRESO1" Relationship="Self.FK_REGISTRO_INGRESO_PERSONA" FromRole="PERSONA" ToRole="REGISTRO_INGRESO" />
+          <NavigationProperty Name="REGISTRO_EMPLEADO_VEHICULO" Relationship="Self.FK_REGISTRO_PERSONA" FromRole="PERSONA" ToRole="REGISTRO_EMPLEADO_VEHICULO" />
+        </EntityType>
+        <EntityType Name="REGISTRO_EMPLEADO_VEHICULO">
+          <Key>
+            <PropertyRef Name="ID_REGISTRO_EMPLEADO_VEHICULO" />
+          </Key>
+          <Property Name="ID_REGISTRO_EMPLEADO_VEHICULO" Type="Guid" Nullable="false" />
+          <Property Name="ID_PERSONA" Type="Guid" Nullable="false" />
+          <Property Name="ID_DATOS_VEHICULO" Type="Guid" Nullable="false" />
+          <Property Name="NRO_CELDA_ASIGNADA" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DATOS_VEHICULO" Relationship="Self.FK_REGISTRO_VEHICULO" FromRole="REGISTRO_EMPLEADO_VEHICULO" ToRole="DATOS_VEHICULO" />
+          <NavigationProperty Name="PERSONA" Relationship="Self.FK_REGISTRO_PERSONA" FromRole="REGISTRO_EMPLEADO_VEHICULO" ToRole="PERSONA" />
+        </EntityType>
+        <EntityType Name="REGISTRO_INGRESO">
+          <Key>
+            <PropertyRef Name="ID_INGRESO" />
+          </Key>
+          <Property Name="ID_INGRESO" Type="Guid" Nullable="false" />
+          <Property Name="FECHA_HORA_INGRESO" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ID_PERSONA" Type="Guid" Nullable="false" />
+          <Property Name="ID_DATOS_VEHICULO" Type="Guid" Nullable="false" />
+          <Property Name="NRO_CELDA_VISITANTE" Type="Int32" Nullable="false" />
+          <Property Name="CONSERJE" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="DATOS_VEHICULO" Relationship="Self.FK_REGISTRO_INGRESO_VEHICULO" FromRole="REGISTRO_INGRESO" ToRole="DATOS_VEHICULO" />
+          <NavigationProperty Name="PERSONA" Relationship="Self.FK_REGISTRO_INGRESO_CONSERJE" FromRole="REGISTRO_INGRESO" ToRole="PERSONA" />
+          <NavigationProperty Name="PERSONA1" Relationship="Self.FK_REGISTRO_INGRESO_PERSONA" FromRole="REGISTRO_INGRESO" ToRole="PERSONA" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TIPO_IDENTIFICACION">
+          <Key>
+            <PropertyRef Name="ID_TIPO_IDENTIFICACION" />
+          </Key>
+          <Property Name="ID_TIPO_IDENTIFICACION" Type="Guid" Nullable="false" />
+          <Property Name="TIPO_IDENTIFICACION1" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="PERSONA" Relationship="Self.FK_PERSONA_TIPOIDENTIFICACION" FromRole="TIPO_IDENTIFICACION" ToRole="PERSONA" />
+        </EntityType>
+        <EntityType Name="TIPO_PERSONA">
+          <Key>
+            <PropertyRef Name="ID_TIPO_PERSONA" />
+          </Key>
+          <Property Name="ID_TIPO_PERSONA" Type="Guid" Nullable="false" />
+          <Property Name="DESC_TIPO_PERSONA" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="PERSONA" Relationship="Self.FK_PERSONA_TIPOPERSONA" FromRole="TIPO_PERSONA" ToRole="PERSONA" />
+        </EntityType>
+        <EntityType Name="TIPO_VEHICULO">
+          <Key>
+            <PropertyRef Name="ID_TIPO_VEHICULO" />
+          </Key>
+          <Property Name="ID_TIPO_VEHICULO" Type="Guid" Nullable="false" />
+          <Property Name="TIPO_VEHICULO1" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="APLICA_ALIVIO" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VALOR" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <NavigationProperty Name="DATOS_VEHICULO" Relationship="Self.FK_DATOS_VEHICULO" FromRole="TIPO_VEHICULO" ToRole="DATOS_VEHICULO" />
+        </EntityType>
+        <Association Name="FK_PERSONA_CARGO">
+          <End Role="CARGO" Type="Self.CARGO" Multiplicity="1" />
+          <End Role="PERSONA" Type="Self.PERSONA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CARGO">
+              <PropertyRef Name="ID_CARGO" />
+            </Principal>
+            <Dependent Role="PERSONA">
+              <PropertyRef Name="ID_CARGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DATOS_VEHICULO">
+          <End Role="TIPO_VEHICULO" Type="Self.TIPO_VEHICULO" Multiplicity="1" />
+          <End Role="DATOS_VEHICULO" Type="Self.DATOS_VEHICULO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPO_VEHICULO">
+              <PropertyRef Name="ID_TIPO_VEHICULO" />
+            </Principal>
+            <Dependent Role="DATOS_VEHICULO">
+              <PropertyRef Name="ID_TIPO_VEHICULO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REGISTRO_INGRESO_VEHICULO">
+          <End Role="DATOS_VEHICULO" Type="Self.DATOS_VEHICULO" Multiplicity="1" />
+          <End Role="REGISTRO_INGRESO" Type="Self.REGISTRO_INGRESO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DATOS_VEHICULO">
+              <PropertyRef Name="ID_DATOS_VEHICULO" />
+            </Principal>
+            <Dependent Role="REGISTRO_INGRESO">
+              <PropertyRef Name="ID_DATOS_VEHICULO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REGISTRO_VEHICULO">
+          <End Role="DATOS_VEHICULO" Type="Self.DATOS_VEHICULO" Multiplicity="1" />
+          <End Role="REGISTRO_EMPLEADO_VEHICULO" Type="Self.REGISTRO_EMPLEADO_VEHICULO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DATOS_VEHICULO">
+              <PropertyRef Name="ID_DATOS_VEHICULO" />
+            </Principal>
+            <Dependent Role="REGISTRO_EMPLEADO_VEHICULO">
+              <PropertyRef Name="ID_DATOS_VEHICULO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PERSONA_TIPOIDENTIFICACION">
+          <End Role="TIPO_IDENTIFICACION" Type="Self.TIPO_IDENTIFICACION" Multiplicity="1" />
+          <End Role="PERSONA" Type="Self.PERSONA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPO_IDENTIFICACION">
+              <PropertyRef Name="ID_TIPO_IDENTIFICACION" />
+            </Principal>
+            <Dependent Role="PERSONA">
+              <PropertyRef Name="TIPO_IDENTIFICACION_PERSONA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PERSONA_TIPOPERSONA">
+          <End Role="TIPO_PERSONA" Type="Self.TIPO_PERSONA" Multiplicity="1" />
+          <End Role="PERSONA" Type="Self.PERSONA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPO_PERSONA">
+              <PropertyRef Name="ID_TIPO_PERSONA" />
+            </Principal>
+            <Dependent Role="PERSONA">
+              <PropertyRef Name="ID_TIPO_PERSONA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REGISTRO_INGRESO_CONSERJE">
+          <End Role="PERSONA" Type="Self.PERSONA" Multiplicity="1" />
+          <End Role="REGISTRO_INGRESO" Type="Self.REGISTRO_INGRESO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERSONA">
+              <PropertyRef Name="ID_PERSONA" />
+            </Principal>
+            <Dependent Role="REGISTRO_INGRESO">
+              <PropertyRef Name="CONSERJE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REGISTRO_INGRESO_PERSONA">
+          <End Role="PERSONA" Type="Self.PERSONA" Multiplicity="1" />
+          <End Role="REGISTRO_INGRESO" Type="Self.REGISTRO_INGRESO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERSONA">
+              <PropertyRef Name="ID_PERSONA" />
+            </Principal>
+            <Dependent Role="REGISTRO_INGRESO">
+              <PropertyRef Name="ID_PERSONA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REGISTRO_PERSONA">
+          <End Role="PERSONA" Type="Self.PERSONA" Multiplicity="1" />
+          <End Role="REGISTRO_EMPLEADO_VEHICULO" Type="Self.REGISTRO_EMPLEADO_VEHICULO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERSONA">
+              <PropertyRef Name="ID_PERSONA" />
+            </Principal>
+            <Dependent Role="REGISTRO_EMPLEADO_VEHICULO">
+              <PropertyRef Name="ID_PERSONA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Parqueadero_MattEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CARGO" EntityType="Self.CARGO" />
+          <EntitySet Name="DATOS_VEHICULO" EntityType="Self.DATOS_VEHICULO" />
+          <EntitySet Name="PERSONA" EntityType="Self.PERSONA" />
+          <EntitySet Name="REGISTRO_EMPLEADO_VEHICULO" EntityType="Self.REGISTRO_EMPLEADO_VEHICULO" />
+          <EntitySet Name="REGISTRO_INGRESO" EntityType="Self.REGISTRO_INGRESO" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="TIPO_IDENTIFICACION" EntityType="Self.TIPO_IDENTIFICACION" />
+          <EntitySet Name="TIPO_PERSONA" EntityType="Self.TIPO_PERSONA" />
+          <EntitySet Name="TIPO_VEHICULO" EntityType="Self.TIPO_VEHICULO" />
+          <AssociationSet Name="FK_PERSONA_CARGO" Association="Self.FK_PERSONA_CARGO">
+            <End Role="CARGO" EntitySet="CARGO" />
+            <End Role="PERSONA" EntitySet="PERSONA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DATOS_VEHICULO" Association="Self.FK_DATOS_VEHICULO">
+            <End Role="TIPO_VEHICULO" EntitySet="TIPO_VEHICULO" />
+            <End Role="DATOS_VEHICULO" EntitySet="DATOS_VEHICULO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REGISTRO_INGRESO_VEHICULO" Association="Self.FK_REGISTRO_INGRESO_VEHICULO">
+            <End Role="DATOS_VEHICULO" EntitySet="DATOS_VEHICULO" />
+            <End Role="REGISTRO_INGRESO" EntitySet="REGISTRO_INGRESO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REGISTRO_VEHICULO" Association="Self.FK_REGISTRO_VEHICULO">
+            <End Role="DATOS_VEHICULO" EntitySet="DATOS_VEHICULO" />
+            <End Role="REGISTRO_EMPLEADO_VEHICULO" EntitySet="REGISTRO_EMPLEADO_VEHICULO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PERSONA_TIPOIDENTIFICACION" Association="Self.FK_PERSONA_TIPOIDENTIFICACION">
+            <End Role="TIPO_IDENTIFICACION" EntitySet="TIPO_IDENTIFICACION" />
+            <End Role="PERSONA" EntitySet="PERSONA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PERSONA_TIPOPERSONA" Association="Self.FK_PERSONA_TIPOPERSONA">
+            <End Role="TIPO_PERSONA" EntitySet="TIPO_PERSONA" />
+            <End Role="PERSONA" EntitySet="PERSONA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REGISTRO_INGRESO_CONSERJE" Association="Self.FK_REGISTRO_INGRESO_CONSERJE">
+            <End Role="PERSONA" EntitySet="PERSONA" />
+            <End Role="REGISTRO_INGRESO" EntitySet="REGISTRO_INGRESO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REGISTRO_INGRESO_PERSONA" Association="Self.FK_REGISTRO_INGRESO_PERSONA">
+            <End Role="PERSONA" EntitySet="PERSONA" />
+            <End Role="REGISTRO_INGRESO" EntitySet="REGISTRO_INGRESO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REGISTRO_PERSONA" Association="Self.FK_REGISTRO_PERSONA">
+            <End Role="PERSONA" EntitySet="PERSONA" />
+            <End Role="REGISTRO_EMPLEADO_VEHICULO" EntitySet="REGISTRO_EMPLEADO_VEHICULO" />
+          </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(Parqueadero_MattModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(Parqueadero_MattModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+        </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Parqueadero_MattModelStoreContainer" CdmEntityContainer="Parqueadero_MattEntities">
+          <EntitySetMapping Name="CARGO">
+            <EntityTypeMapping TypeName="Parqueadero_MattModel.CARGO">
+              <MappingFragment StoreEntitySet="CARGO">
+                <ScalarProperty Name="ID_CARGO" ColumnName="ID_CARGO" />
+                <ScalarProperty Name="NOMBRE_CARGO" ColumnName="NOMBRE_CARGO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DATOS_VEHICULO">
+            <EntityTypeMapping TypeName="Parqueadero_MattModel.DATOS_VEHICULO">
+              <MappingFragment StoreEntitySet="DATOS_VEHICULO">
+                <ScalarProperty Name="ID_DATOS_VEHICULO" ColumnName="ID_DATOS_VEHICULO" />
+                <ScalarProperty Name="CILINDAJE_MOTO" ColumnName="CILINDAJE_MOTO" />
+                <ScalarProperty Name="TIEMPO_MOTO" ColumnName="TIEMPO_MOTO" />
+                <ScalarProperty Name="PLACA_MOTO_CARRO" ColumnName="PLACA_MOTO_CARRO" />
+                <ScalarProperty Name="MODELO_CARRO" ColumnName="MODELO_CARRO" />
+                <ScalarProperty Name="NUMERO_PUERTAS_CARRO" ColumnName="NUMERO_PUERTAS_CARRO" />
+                <ScalarProperty Name="MARCA_BICI" ColumnName="MARCA_BICI" />
+                <ScalarProperty Name="COLOR_BICI" ColumnName="COLOR_BICI" />
+                <ScalarProperty Name="FOTO_VEHICULO" ColumnName="FOTO_VEHICULO" />
+                <ScalarProperty Name="ID_TIPO_VEHICULO" ColumnName="ID_TIPO_VEHICULO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PERSONA">
+            <EntityTypeMapping TypeName="Parqueadero_MattModel.PERSONA">
+              <MappingFragment StoreEntitySet="PERSONA">
+                <ScalarProperty Name="ID_PERSONA" ColumnName="ID_PERSONA" />
+                <ScalarProperty Name="IDENTIFICACION_PERSONA" ColumnName="IDENTIFICACION_PERSONA" />
+                <ScalarProperty Name="TIPO_IDENTIFICACION_PERSONA" ColumnName="TIPO_IDENTIFICACION_PERSONA" />
+                <ScalarProperty Name="NOMBRE1_PERSONA" ColumnName="NOMBRE1_PERSONA" />
+                <ScalarProperty Name="NOMBRE2_PERSONA" ColumnName="NOMBRE2_PERSONA" />
+                <ScalarProperty Name="APELLIDO1_PERSONA" ColumnName="APELLIDO1_PERSONA" />
+                <ScalarProperty Name="APELLIDO2_PERSONA" ColumnName="APELLIDO2_PERSONA" />
+                <ScalarProperty Name="ID_CARGO" ColumnName="ID_CARGO" />
+                <ScalarProperty Name="ID_TIPO_PERSONA" ColumnName="ID_TIPO_PERSONA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REGISTRO_EMPLEADO_VEHICULO">
+            <EntityTypeMapping TypeName="Parqueadero_MattModel.REGISTRO_EMPLEADO_VEHICULO">
+              <MappingFragment StoreEntitySet="REGISTRO_EMPLEADO_VEHICULO">
+                <ScalarProperty Name="ID_REGISTRO_EMPLEADO_VEHICULO" ColumnName="ID_REGISTRO_EMPLEADO_VEHICULO" />
+                <ScalarProperty Name="ID_PERSONA" ColumnName="ID_PERSONA" />
+                <ScalarProperty Name="ID_DATOS_VEHICULO" ColumnName="ID_DATOS_VEHICULO" />
+                <ScalarProperty Name="NRO_CELDA_ASIGNADA" ColumnName="NRO_CELDA_ASIGNADA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REGISTRO_INGRESO">
+            <EntityTypeMapping TypeName="Parqueadero_MattModel.REGISTRO_INGRESO">
+              <MappingFragment StoreEntitySet="REGISTRO_INGRESO">
+                <ScalarProperty Name="ID_INGRESO" ColumnName="ID_INGRESO" />
+                <ScalarProperty Name="FECHA_HORA_INGRESO" ColumnName="FECHA_HORA_INGRESO" />
+                <ScalarProperty Name="ID_PERSONA" ColumnName="ID_PERSONA" />
+                <ScalarProperty Name="ID_DATOS_VEHICULO" ColumnName="ID_DATOS_VEHICULO" />
+                <ScalarProperty Name="NRO_CELDA_VISITANTE" ColumnName="NRO_CELDA_VISITANTE" />
+                <ScalarProperty Name="CONSERJE" ColumnName="CONSERJE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Parqueadero_MattModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TIPO_IDENTIFICACION">
+            <EntityTypeMapping TypeName="Parqueadero_MattModel.TIPO_IDENTIFICACION">
+              <MappingFragment StoreEntitySet="TIPO_IDENTIFICACION">
+                <ScalarProperty Name="ID_TIPO_IDENTIFICACION" ColumnName="ID_TIPO_IDENTIFICACION" />
+                <ScalarProperty Name="TIPO_IDENTIFICACION1" ColumnName="TIPO_IDENTIFICACION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TIPO_PERSONA">
+            <EntityTypeMapping TypeName="Parqueadero_MattModel.TIPO_PERSONA">
+              <MappingFragment StoreEntitySet="TIPO_PERSONA">
+                <ScalarProperty Name="ID_TIPO_PERSONA" ColumnName="ID_TIPO_PERSONA" />
+                <ScalarProperty Name="DESC_TIPO_PERSONA" ColumnName="DESC_TIPO_PERSONA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TIPO_VEHICULO">
+            <EntityTypeMapping TypeName="Parqueadero_MattModel.TIPO_VEHICULO">
+              <MappingFragment StoreEntitySet="TIPO_VEHICULO">
+                <ScalarProperty Name="ID_TIPO_VEHICULO" ColumnName="ID_TIPO_VEHICULO" />
+                <ScalarProperty Name="TIPO_VEHICULO1" ColumnName="TIPO_VEHICULO" />
+                <ScalarProperty Name="APLICA_ALIVIO" ColumnName="APLICA_ALIVIO" />
+                <ScalarProperty Name="VALOR" ColumnName="VALOR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Parqueadero_MattModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Parqueadero_MattModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Parqueadero_MattModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Parqueadero_MattModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Parqueadero_MattModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Parqueadero_MattModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Parqueadero_MattModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Parqueadero_MattModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Parqueadero_MattModel.Store.sp_upgraddiagrams" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

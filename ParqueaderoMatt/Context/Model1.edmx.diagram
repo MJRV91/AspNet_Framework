@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="03b5f7bad86c404fa46060c96ee9ec23" Name="Diagram1">
+        <EntityTypeShape EntityType="Parqueadero_MattModel.CARGO" Width="2" PointX="0.5" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Parqueadero_MattModel.DATOS_VEHICULO" Width="2.25" PointX="9.375" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Parqueadero_MattModel.PERSONA" Width="2.625" PointX="4.25" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Parqueadero_MattModel.REGISTRO_EMPLEADO_VEHICULO" Width="2.75" PointX="4.25" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Parqueadero_MattModel.REGISTRO_INGRESO" Width="2" PointX="9.5" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Parqueadero_MattModel.sysdiagrams" Width="1.75" PointX="13.25" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Parqueadero_MattModel.TIPO_IDENTIFICACION" Width="2" PointX="0.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Parqueadero_MattModel.TIPO_PERSONA" Width="2" PointX="0.5" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Parqueadero_MattModel.TIPO_VEHICULO" Width="1.875" PointX="13.5" PointY="6.625" IsExpanded="true" />
+        <AssociationConnector Association="Parqueadero_MattModel.FK_PERSONA_CARGO" ManuallyRouted="false" />
+        <AssociationConnector Association="Parqueadero_MattModel.FK_DATOS_VEHICULO" ManuallyRouted="false" />
+        <AssociationConnector Association="Parqueadero_MattModel.FK_REGISTRO_INGRESO_VEHICULO" ManuallyRouted="false" />
+        <AssociationConnector Association="Parqueadero_MattModel.FK_REGISTRO_VEHICULO" ManuallyRouted="false" />
+        <AssociationConnector Association="Parqueadero_MattModel.FK_PERSONA_TIPOIDENTIFICACION" ManuallyRouted="false" />
+        <AssociationConnector Association="Parqueadero_MattModel.FK_PERSONA_TIPOPERSONA" ManuallyRouted="false" />
+        <AssociationConnector Association="Parqueadero_MattModel.FK_REGISTRO_INGRESO_CONSERJE" ManuallyRouted="false" />
+        <AssociationConnector Association="Parqueadero_MattModel.FK_REGISTRO_INGRESO_PERSONA" ManuallyRouted="false" />
+        <AssociationConnector Association="Parqueadero_MattModel.FK_REGISTRO_PERSONA" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

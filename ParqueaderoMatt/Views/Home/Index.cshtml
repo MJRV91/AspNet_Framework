@@ -14,9 +14,9 @@
         <p>
             En esta opción encontraras la administración de los usuarios.
         </p>
-        <p class="btn btn-default">
-            @Html.ActionLink("Ir", "About", "Home")&raquo;
-        </p>
+        <p><a class="btn btn-default" href="@Url.Action("About", "Home", null, null)">Ir&raquo;</a></p>
+            @*@Html.ActionLink("Ir", "About", "Home")&raquo;*@
+        
     </div>
     <div class="col-md-4">
         <h2>Vehículos</h2>
